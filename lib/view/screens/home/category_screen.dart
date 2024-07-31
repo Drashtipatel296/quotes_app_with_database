@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'home_screen.dart';
 
 class Category {
   final String name;
@@ -17,19 +19,41 @@ class CategorySelectionScreen extends StatefulWidget {
 
 class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
   final List<Category> categories = [
-    Category(name: 'Happiness', text: '😀'),
-    Category(name: 'Purpose', text: '🎯'),
-    Category(name: 'Weight Loss', text: '⚖️'),
-    Category(name: 'Healthy Diet', text: '🍎'),
-    Category(name: 'Exercise', text: '🏋️‍♀️'),
-    Category(name: 'Body Image', text: '🧍‍♂️'),
-    Category(name: 'Healing', text: '🏥'),
-    Category(name: 'Health', text: '🥂'),
+    Category(name: 'Love', text: '🩷'),
+    Category(name: 'Affirmation', text: '🪯'),
+    Category(name: 'Motivation', text: '⚕️'),
     Category(name: 'Positivity', text: '😛'),
-    Category(name: 'Women', text: '🙋‍♀️'),
-    Category(name: 'Parenting', text: '👨‍👩‍👧‍👦'),
-    Category(name: 'Creativity', text: '⭐'),
+    Category(name: 'Mental Health', text: '🧑‍⚕️'),
+    Category(name: 'Discipline', text: '🕴️'),
+    Category(name: 'Broken', text: '💔'),
+    Category(name: 'Self Esteem', text: '🙋‍♀️'),
+    Category(name: 'Success', text: '🎯'),
+    Category(name: 'Friendship', text: '🤝'),
+    Category(name: 'Loyalty', text: '🥰'),
+    Category(name: 'Kindness', text: '😊'),
+    Category(name: 'Funny', text: '😂'),
+    Category(name: 'Happiness', text: '😀'),
+    Category(name: 'Sad', text: '😔'),
+    Category(name: 'Ego', text: '😎'),
   ];
+
+  final Map<String, bool> selectedCategories = {};
+
+  @override
+  void initState() {
+    super.initState();
+    for (var category in categories) {
+      selectedCategories[category.name] = false;
+    }
+  }
+
+  void navigateToHomeScreen() {
+    final selectedCategoryNames = selectedCategories.entries
+        .where((entry) => entry.value)
+        .map((entry) => entry.key)
+        .toList();
+    Get.to(() => HomeScreen(selectedCategories: selectedCategoryNames));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +61,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: Icon(Icons.close,size: 35,color: Color(0xff3B4AB1),),
+            icon: Icon(Icons.close, size: 35, color: Color(0xff3B4AB1)),
             onPressed: () {
               // Close button action
             },
@@ -57,9 +81,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             Text(
               'Get a random mix from selected categories',
               style: GoogleFonts.poppins(
@@ -88,7 +110,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10,top: 15),
+                      padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -106,11 +128,15 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                                 child: Checkbox(
                                   shape: CircleBorder(),
                                   activeColor: Color(0xff3B4AB1),
-                                  value: false,
-                                  onChanged: (value) {},
+                                  value: selectedCategories[category.name],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedCategories[category.name] = value!;
+                                    });
+                                  },
                                 ),
                               ),
-                              Text(category.text,style: TextStyle(fontSize: 28),),
+                              Text(category.text, style: TextStyle(fontSize: 28)),
                             ],
                           ),
                         ],
@@ -118,6 +144,12 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                     ),
                   );
                 },
+              ),
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: navigateToHomeScreen,
+                child: Text('Continue'),
               ),
             ),
           ],

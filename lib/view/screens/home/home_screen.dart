@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:quotes_app_with_database/controller/database_controller.dart';
+import 'package:share_extend/share_extend.dart';
+import '../../../controller/database_controller.dart';
+import 'category_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final List<String> selectedCategories;
+
+  HomeScreen({required this.selectedCategories});
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     final QuotesController quotesController = Get.put(QuotesController());
+
     return Scaffold(
       body: Obx(() {
         if (quotesController.isLoading.value) {
@@ -21,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         if (quotesController.quotes.isEmpty) {
           return Center(
             child: Text(
-              'No quotes avilable',
+              'No quotes available',
               style: TextStyle(color: Colors.white),
             ),
           );
@@ -36,7 +38,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Content overlay
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -58,16 +59,18 @@ class HomeScreen extends StatelessWidget {
                                 Icons.menu,
                                 color: Colors.white,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.to(() => CategorySelectionScreen());
+                              },
                             ),
                             SizedBox(width: 8.0),
-                            Text(
-                              'Social Skills',
+                            Obx(() => Text(
+                              quotesController.filteredQuotes[quotesController.currentIndex.value].category,
                               style: TextStyle(
                                 fontSize: 21,
                                 color: Colors.white,
                               ),
-                            ),
+                            )),
                           ],
                         ),
                       ),
@@ -87,9 +90,7 @@ class HomeScreen extends StatelessWidget {
                           onPressed: () {},
                         ),
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
+                      SizedBox(width: 20),
                       Container(
                         height: 45,
                         width: 45,
@@ -105,42 +106,43 @@ class HomeScreen extends StatelessWidget {
                           onPressed: () {},
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 10),
                     ],
                   ),
                 ),
-                // Spacer(),
                 Expanded(
-                    child: PageView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: quotesController.quotes.length,
-                  itemBuilder: (context, index) {
-                    var quotes = quotesController.quotes[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Center(
-                        child: Text(
-                          quotes.quote,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 10.0,
-                                color: Colors.black,
-                                offset: Offset(2.0, 2.0),
-                              ),
-                            ],
+                  child: PageView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: quotesController.filteredQuotes.length,
+                    onPageChanged: (index) {
+                      quotesController.setCurrentIndex(index);
+                    },
+                    itemBuilder: (context, index) {
+                      var quote = quotesController.filteredQuotes[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Center(
+                          child: Text(
+                            quote.quote,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.black,
+                                  offset: Offset(2.0, 2.0),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                )),
+                      );
+                    },
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),
                   child: Row(
@@ -157,7 +159,10 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             IconButton(
                               icon: Icon(Icons.share),
-                              onPressed: () {},
+                              onPressed: () {
+                                var currentQuote = quotesController.filteredQuotes[quotesController.currentIndex.value].quote;
+                                ShareExtend.share(currentQuote, "text");
+                              },
                               color: Colors.white,
                             ),
                             Text(
@@ -180,7 +185,7 @@ class HomeScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             IconButton(
-                              icon: Icon(Icons.share),
+                              icon: Icon(Icons.thumb_up_alt_outlined),
                               onPressed: () {},
                               color: Colors.white,
                             ),
