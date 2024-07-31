@@ -63,8 +63,22 @@ class DatabaseHelper {
     return result.map((json) => Quote.fromMap(json)).toList();
   }
 
-  Future<void> deleteAllQuotes() async {
+  Future<void> likeQuote(int quoteId) async {
     final db = await database;
-    await db.delete('quotes');
+    await db.insert('liked_quotes', {'quote_id': quoteId});
+  }
+
+  Future<void> unlikeQuote(int quoteId) async {
+    final db = await database;
+    await db.delete('liked_quotes', where: 'quote_id = ?', whereArgs: [quoteId]);
+  }
+
+  Future<List<Quote>> fetchLikedQuotes() async {
+    final db = await database;
+    final result = await db.rawQuery('''
+      SELECT quotes.* FROM quotes
+      INNER JOIN liked_quotes ON quotes.id = liked_quotes.quote_id
+    ''');
+    return result.map((json) => Quote.fromMap(json)).toList();
   }
 }

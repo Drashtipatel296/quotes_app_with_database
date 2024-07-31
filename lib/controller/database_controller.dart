@@ -9,12 +9,17 @@ class QuotesController extends GetxController {
   var filteredQuotes = <Quote>[].obs;
   var isLoading = true.obs;
   var selectedCategories = <String>[].obs;
-  var currentIndex = 0.obs; // Add this line
+  var currentIndex = 0.obs;
+  var selectedWallpaper = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchQuotes();
+  }
+
+  void setSelectedWallpaper(String wallpaper) {
+    selectedWallpaper.value = wallpaper;
   }
 
   void fetchQuotes() async {
@@ -23,7 +28,7 @@ class QuotesController extends GetxController {
     var localQuotes = await DatabaseHelper.instance.fetchQuotes();
     if (localQuotes.isNotEmpty) {
       quotes.assignAll(localQuotes);
-      quotes.shuffle(); // Shuffle the quotes
+      quotes.shuffle();
       filterQuotes();
       isLoading(false);
       return;

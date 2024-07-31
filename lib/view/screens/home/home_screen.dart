@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quotes_app_with_database/view/screens/home/wallpaper_screen.dart';
 import 'package:share_extend/share_extend.dart';
 import '../../../controller/database_controller.dart';
 import 'category_screen.dart';
@@ -30,14 +31,16 @@ class HomeScreen extends StatelessWidget {
         }
         return Stack(
           children: [
-            Container(
+            Obx(() => Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/bg-img/img2.jpg'),
+                  image: AssetImage(quotesController.selectedWallpaper.value.isEmpty
+                      ? 'assets/bg-img/img1.jpg'
+                      : quotesController.selectedWallpaper.value),
                   fit: BoxFit.cover,
                 ),
               ),
-            ),
+            )),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -87,7 +90,9 @@ class HomeScreen extends StatelessWidget {
                             Icons.image,
                             color: Colors.white,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(WallpaperScreen(), transition: Transition.fadeIn);
+                          },
                         ),
                       ),
                       SizedBox(width: 20),
@@ -125,8 +130,8 @@ class HomeScreen extends StatelessWidget {
                           child: Text(
                             quote.quote,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 24.0,
+                            style: const TextStyle(
+                              fontSize: 30.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               shadows: [
