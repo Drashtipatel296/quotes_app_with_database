@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quotes_app_with_database/view/screens/home/category_screen.dart';
 import 'package:quotes_app_with_database/view/screens/home/home_screen.dart';
-import 'package:quotes_app_with_database/view/screens/home/wallpaper_screen.dart';
+
+import 'controller/theme_controller.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -12,9 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(selectedCategories: [],),
+    final ThemeController themeController = Get.put(ThemeController());
+    return Obx(
+      () => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: themeController.theme,
+        home: HomeScreen(selectedCategories: [],),
+      ),
     );
   }
 }

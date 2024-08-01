@@ -76,23 +76,22 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
             Text(
               'Categories',
               style: GoogleFonts.poppins(
-                color: Color(0xff3B4AB1),
+                color: const Color(0xff3B4AB1),
                 fontSize: 42,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Get a random mix from selected categories',
               style: GoogleFonts.poppins(
-                color: Colors.black,
                 fontSize: 20,
               ),
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,

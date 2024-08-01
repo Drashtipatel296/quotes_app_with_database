@@ -18,7 +18,12 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(
+      path,
+      version: 2,
+      onCreate: _createDB,
+      onUpgrade: _upgradeDB,
+    );
   }
 
   Future _createDB(Database db, int version) async {
@@ -30,12 +35,31 @@ class DatabaseHelper {
         category TEXT
       )
     ''');
+
+    await db.execute('''
+      CREATE TABLE liked_quotes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        quote_id INTEGER,
+        FOREIGN KEY (quote_id) REFERENCES quotes (id)
+      )
+    ''');
+  }
+
+  Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('''
+        CREATE TABLE liked_quotes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          quote_id INTEGER,
+          FOREIGN KEY (quote_id) REFERENCES quotes (id)
+        )
+      ''');
+    }
   }
 
   Future<void> addCategoryColumn() async {
     final db = await database;
 
-    // Check if the column already exists
     var result = await db.rawQuery("PRAGMA table_info(quotes)");
     bool columnExists = result.any((column) => column['name'] == 'category');
 
@@ -57,12 +81,6 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<Quote>> fetchQuotes() async {
-    final db = await database;
-    final result = await db.query('quotes');
-    return result.map((json) => Quote.fromMap(json)).toList();
-  }
-
   Future<void> likeQuote(int quoteId) async {
     final db = await database;
     await db.insert('liked_quotes', {'quote_id': quoteId});
@@ -79,6 +97,12 @@ class DatabaseHelper {
       SELECT quotes.* FROM quotes
       INNER JOIN liked_quotes ON quotes.id = liked_quotes.quote_id
     ''');
+    return result.map((json) => Quote.fromMap(json)).toList();
+  }
+
+  Future<List<Quote>> fetchQuotes() async {
+    final db = await database;
+    final result = await db.query('quotes');
     return result.map((json) => Quote.fromMap(json)).toList();
   }
 }

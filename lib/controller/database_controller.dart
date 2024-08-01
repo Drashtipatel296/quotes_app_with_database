@@ -7,6 +7,7 @@ import '../model/database_model.dart';
 class QuotesController extends GetxController {
   var quotes = <Quote>[].obs;
   var filteredQuotes = <Quote>[].obs;
+  var likedQuotes = <Quote>[].obs;
   var isLoading = true.obs;
   var selectedCategories = <String>[].obs;
   var currentIndex = 0.obs;
@@ -16,6 +17,7 @@ class QuotesController extends GetxController {
   void onInit() {
     super.onInit();
     fetchQuotes();
+    fetchLikedQuotes();
   }
 
   void setSelectedWallpaper(String wallpaper) {
@@ -24,7 +26,6 @@ class QuotesController extends GetxController {
 
   void fetchQuotes() async {
     isLoading(true);
-
     var localQuotes = await DatabaseHelper.instance.fetchQuotes();
     if (localQuotes.isNotEmpty) {
       quotes.assignAll(localQuotes);
@@ -41,7 +42,7 @@ class QuotesController extends GetxController {
           await DatabaseHelper.instance.insertQuote(quote);
         }
         quotes.assignAll(apiQuotes);
-        quotes.shuffle(); // Shuffle the quotes
+        quotes.shuffle();
       } else {
         quotes.assignAll([]);
       }
@@ -61,7 +62,7 @@ class QuotesController extends GetxController {
       filteredQuotes.assignAll(
           quotes.where((quote) => selectedCategories.contains(quote.category)).toList());
     }
-    filteredQuotes.shuffle(); // Shuffle the filtered quotes
+    filteredQuotes.shuffle();
   }
 
   void setSelectedCategories(List<String> categories) {
@@ -71,5 +72,20 @@ class QuotesController extends GetxController {
 
   void setCurrentIndex(int index) {
     currentIndex.value = index;
+  }
+
+  void likeQuote(int quoteId) async {
+    await DatabaseHelper.instance.likeQuote(quoteId);
+    fetchLikedQuotes();
+  }
+
+  void unlikeQuote(int quoteId) async {
+    await DatabaseHelper.instance.unlikeQuote(quoteId);
+    fetchLikedQuotes();
+  }
+
+  void fetchLikedQuotes() async {
+    var liked = await DatabaseHelper.instance.fetchLikedQuotes();
+    likedQuotes.assignAll(liked);
   }
 }
