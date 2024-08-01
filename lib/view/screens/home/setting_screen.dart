@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,7 +89,7 @@ class SettingScreen extends StatelessWidget {
                     children: [
                       Text('Change Theme', style: GoogleFonts.poppins(fontSize: 20)),
                       Spacer(),
-                      Icon(Icons.arrow_forward_ios, color: Color(0xff3B4AB1), size: 19),
+                      Icon(CupertinoIcons.moon_fill, color: Color(0xff3B4AB1), size: 19),
                     ],
                   ),
                 ),

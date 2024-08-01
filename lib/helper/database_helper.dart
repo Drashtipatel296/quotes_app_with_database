@@ -20,9 +20,9 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 2,
+      version: 1,
       onCreate: _createDB,
-      onUpgrade: _upgradeDB,
+      // onUpgrade: _upgradeDB,
     );
   }
 
@@ -45,17 +45,17 @@ class DatabaseHelper {
     ''');
   }
 
-  Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
-    if (oldVersion < 2) {
-      await db.execute('''
-        CREATE TABLE liked_quotes (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          quote_id INTEGER,
-          FOREIGN KEY (quote_id) REFERENCES quotes (id)
-        )
-      ''');
-    }
-  }
+  // Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+  //   if (oldVersion < 2) {
+  //     await db.execute('''
+  //       CREATE TABLE liked_quotes (
+  //         id INTEGER PRIMARY KEY AUTOINCREMENT,
+  //         quote_id INTEGER,
+  //         FOREIGN KEY (quote_id) REFERENCES quotes (id)
+  //       )
+  //     ''');
+  //   }
+  // }
 
   Future<void> addCategoryColumn() async {
     final db = await database;

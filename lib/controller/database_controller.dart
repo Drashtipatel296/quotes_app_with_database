@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../helper/api_helper.dart';
 import '../helper/database_helper.dart';
 import '../model/database_model.dart';
@@ -8,6 +7,7 @@ class QuotesController extends GetxController {
   var quotes = <Quote>[].obs;
   var filteredQuotes = <Quote>[].obs;
   var likedQuotes = <Quote>[].obs;
+  var likedQuotesByCategory = <String, List<Quote>>{}.obs;
   var isLoading = true.obs;
   var selectedCategories = <String>[].obs;
   var currentIndex = 0.obs;
@@ -59,8 +59,7 @@ class QuotesController extends GetxController {
     if (selectedCategories.isEmpty) {
       filteredQuotes.assignAll(quotes);
     } else {
-      filteredQuotes.assignAll(
-          quotes.where((quote) => selectedCategories.contains(quote.category)).toList());
+      filteredQuotes.assignAll(quotes.where((quote) => selectedCategories.contains(quote.category)).toList());
     }
     filteredQuotes.shuffle();
   }
@@ -87,5 +86,18 @@ class QuotesController extends GetxController {
   void fetchLikedQuotes() async {
     var liked = await DatabaseHelper.instance.fetchLikedQuotes();
     likedQuotes.assignAll(liked);
+    groupLikedQuotesByCategory();
+  }
+
+  void groupLikedQuotesByCategory() {
+    Map<String, List<Quote>> groupedQuotes = {};
+    for (var quote in likedQuotes) {
+      if (groupedQuotes.containsKey(quote.category)) {
+        groupedQuotes[quote.category]!.add(quote);
+      } else {
+        groupedQuotes[quote.category] = [quote];
+      }
+    }
+    likedQuotesByCategory.assignAll(groupedQuotes);
   }
 }

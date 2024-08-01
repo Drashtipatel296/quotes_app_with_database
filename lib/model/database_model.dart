@@ -5,7 +5,7 @@ class Quote {
   final String category;
 
   Quote({
-    this.id, // Optional id
+    this.id,
     required this.quote,
     required this.author,
     required this.category,

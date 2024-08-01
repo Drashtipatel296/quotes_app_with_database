@@ -131,10 +131,10 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Center(
                           child: Text(
-                            quote.quote,
+                            "\"${quote.quote}\"",
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
-                              fontSize: 35.0,
+                              fontSize: 32.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               shadows: [
