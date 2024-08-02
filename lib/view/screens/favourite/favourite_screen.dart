@@ -134,7 +134,9 @@ class FavoriteScreen extends StatelessWidget {
               },
               child: Container(
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
+                    
                     fit: BoxFit.cover,
                     image: AssetImage(imagePath),
                     colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.dstIn),

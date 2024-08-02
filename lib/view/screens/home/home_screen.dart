@@ -205,14 +205,9 @@ class HomeScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Obx(() {
-                              final currentIndex =
-                                  quotesController.quotesList.indexWhere(
-                                (quote) =>
-                                    quote.category ==
-                                    quotesController.currentCategory.value,
-                              );
-                              final quote =
-                                  quotesController.quotesList[currentIndex];
+                              final currentIndex = quotesController.quotesList.indexWhere(
+                                (quote) => quote.category == quotesController.currentCategory.value,);
+                              final quote = quotesController.quotesList[currentIndex];
                               final isLiked = quote.like;
                               return IconButton(
                                 icon: Icon(
@@ -223,10 +218,8 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   quotesController.likeQuote(currentIndex);
-                                  final updatedQuote =
-                                      quotesController.quotesList[currentIndex];
-                                  DBHelper().insertQuote(
-                                      updatedQuote); // Or use an update method
+                                  final updatedQuote = quotesController.quotesList[currentIndex];
+                                  DBHelper().insertQuote(updatedQuote);
                                 },
                               );
                             }),
