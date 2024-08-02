@@ -5,9 +5,9 @@ import '../helper/api_helper.dart';
 import '../model/database_model.dart';
 
 class HomeController extends GetxController {
-  var quotesList = <Quote>[].obs;
-  var likedQuotesList = <Quote>[].obs;
-  var categoryQuotesList = <Quote>[].obs;
+  var quotesList = <QuoteModel>[].obs;
+  var likedQuotesList = <QuoteModel>[].obs;
+  var categoryQuotesList = <QuoteModel>[].obs;
   var isLoading = true.obs;
   var selectedImage = ''.obs;
   var currentCategory = ''.obs;
@@ -15,7 +15,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchQuotes();
+    getQuotes();
     fetchLikedQuotes();
   }
 
@@ -27,11 +27,11 @@ class HomeController extends GetxController {
     currentCategory.value = category;
   }
 
-  Future<void> fetchQuotes() async {
+  Future<void> getQuotes() async {
     isLoading(true);
     List<dynamic>? jsonData = await ApiServices().apiCalling();
     if (jsonData != null) {
-      var fetchedQuotes = jsonData.map((data) => Quote.fromMap(data)).toList();
+      var fetchedQuotes = jsonData.map((data) => QuoteModel.fromMap(data)).toList();
       fetchedQuotes.shuffle(Random());
       quotesList.value = fetchedQuotes;
       if (quotesList.isNotEmpty) {
@@ -44,7 +44,7 @@ class HomeController extends GetxController {
     isLoading(false);
   }
 
-  void likeQuote(int index) {
+  void favQuote(int index) {
     var quote = quotesList[index];
     quote.like = !quote.like;
     quotesList[index] = quote;
@@ -57,7 +57,12 @@ class HomeController extends GetxController {
   }
 
   Future<void> fetchLikedQuotes() async {
-    likedQuotesList.value = await DBHelper().getLikedQuotes();
+    likedQuotesList.value = await DatabaseHelper().getLikedQuotes();
+    for (var quote in likedQuotesList) {
+      if (quote.id == null) {
+        print('Error: Fetched quote with null ID');
+      }
+    }
   }
-
 }
+

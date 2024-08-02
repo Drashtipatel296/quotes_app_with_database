@@ -1,9 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../model/database_model.dart';
 
-class DBHelper {
+class DatabaseHelper {
   static Database? _db;
 
   Future<Database> get db async {
@@ -20,7 +19,6 @@ class DBHelper {
       onCreate: (db, version) async {
         await db.execute('''
           CREATE TABLE quotes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
             quote TEXT,
             author TEXT,
             liked INTEGER,
@@ -31,7 +29,7 @@ class DBHelper {
     );
   }
 
-  Future<void> insertQuote(Quote quote) async {
+  Future<void> insertQuote(QuoteModel quote) async {
     final dbClient = await db;
     await dbClient.insert(
       'quotes',
@@ -40,13 +38,13 @@ class DBHelper {
     );
   }
 
-  Future<List<Quote>> getLikedQuotes() async {
+  Future<List<QuoteModel>> getLikedQuotes() async {
     final dbClient = await db;
     final List<Map<String, dynamic>> maps =
-    await dbClient.query('quotes', where: 'liked = ?', whereArgs: [1]);
+        await dbClient.query('quotes', where: 'liked = ?', whereArgs: [1]);
 
     return List.generate(maps.length, (i) {
-      return Quote.fromMap(maps[i]);
+      return QuoteModel.fromMap(maps[i]);
     });
   }
 }

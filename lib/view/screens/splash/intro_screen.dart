@@ -97,8 +97,7 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Color(0xffF0F2FF),
-                                      border: Border.all(width: 0.5, color: Colors.blue),
+                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
                                     ),
                                     child: Icon(Icons.remove),
                                   ),
@@ -108,8 +107,7 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Color(0xffF0F2FF),
-                                      border: Border.all(width: 0.5, color: Colors.blue),
+                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
                                     ),
                                     child: Icon(Icons.add),
                                   ),
@@ -139,8 +137,7 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Color(0xffF0F2FF),
-                                      border: Border.all(width: 0.5, color: Colors.blue),
+                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
                                     ),
                                     child: Icon(Icons.remove),
                                   ),
@@ -150,8 +147,7 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Color(0xffF0F2FF),
-                                      border: Border.all(width: 0.5, color: Colors.blue),
+                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
                                     ),
                                     child: Icon(Icons.add),
                                   ),
@@ -181,8 +177,7 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Color(0xffF0F2FF),
-                                      border: Border.all(width: 0.5, color: Colors.blue),
+                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
                                     ),
                                     child: Icon(Icons.remove),
                                   ),
@@ -192,8 +187,7 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Color(0xffF0F2FF),
-                                      border: Border.all(width: 0.5, color: Colors.blue),
+                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
                                     ),
                                     child: Icon(Icons.add),
                                   ),

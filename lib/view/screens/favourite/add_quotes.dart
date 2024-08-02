@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../model/database_model.dart';
 
 class ShowQuotesScreen extends StatelessWidget {
   final String category;
-  final List<Quote> quotes;
+  final List<QuoteModel> quotes;
 
   const ShowQuotesScreen({
     required this.category,
@@ -18,14 +19,20 @@ class ShowQuotesScreen extends StatelessWidget {
         title: Text(category),
       ),
       body: ListView(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         children: quotes.map((quote) {
           return Card(
             elevation: 4,
-            margin: EdgeInsets.symmetric(vertical: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5),
             child: ListTile(
-              title: Text(quote.quote),
-              subtitle: Text('- ${quote.author}'),
+              title: Text(
+                quote.quote,
+                style: GoogleFonts.poppins(fontSize: 14),
+              ),
+              subtitle: Text(
+                '- ${quote.author}',
+                style: GoogleFonts.poppins(fontStyle: FontStyle.italic),
+              ),
             ),
           );
         }).toList(),

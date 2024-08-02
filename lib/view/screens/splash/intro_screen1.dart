@@ -28,7 +28,7 @@ class _SplashScreenState extends State<IntroScreen1> with SingleTickerProviderSt
       CurvedAnimation(parent: _controller, curve: Curves.easeIn),
     );
 
-    _slideAnimation = Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0)).animate(
+    _slideAnimation = Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0)).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
@@ -82,14 +82,14 @@ class _SplashScreenState extends State<IntroScreen1> with SingleTickerProviderSt
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.done, color: Color(0xff3B4AB1), size: 25),
+                                  const Icon(Icons.done, color: Color(0xff3B4AB1), size: 25),
                                   Text('  100% Free', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500)),
                                 ],
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               Row(
                                 children: [
-                                  Icon(Icons.done, color: Color(0xff3B4AB1), size: 25),
+                                  const Icon(Icons.done, color: Color(0xff3B4AB1), size: 25),
                                   Text('  No ads', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500)),
                                 ],
                               ),

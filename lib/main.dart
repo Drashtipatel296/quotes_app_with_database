@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quotes_app_with_database/view/screens/home/home_screen.dart';
-import 'package:quotes_app_with_database/view/screens/splash/intro_screen.dart';
-import 'package:quotes_app_with_database/view/screens/splash/intro_screen1.dart';
 import 'package:quotes_app_with_database/view/screens/splash/splash_screen.dart';
 
 import 'controller/theme_controller.dart';
@@ -20,7 +17,7 @@ class MyApp extends StatelessWidget {
       () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: themeController.theme,
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }
