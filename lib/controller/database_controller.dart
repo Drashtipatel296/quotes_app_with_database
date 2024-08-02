@@ -1,17 +1,16 @@
+import 'dart:math';
 import 'package:get/get.dart';
+import 'package:quotes_app_with_database/helper/database_helper.dart';
 import '../helper/api_helper.dart';
-import '../helper/database_helper.dart';
 import '../model/database_model.dart';
 
-class QuotesController extends GetxController {
-  var quotes = <Quote>[].obs;
-  var filteredQuotes = <Quote>[].obs;
-  var likedQuotes = <Quote>[].obs;
-  var likedQuotesByCategory = <String, List<Quote>>{}.obs;
+class HomeController extends GetxController {
+  var quotesList = <Quote>[].obs;
+  var likedQuotesList = <Quote>[].obs;
+  var categoryQuotesList = <Quote>[].obs;
   var isLoading = true.obs;
-  var selectedCategories = <String>[].obs;
-  var currentIndex = 0.obs;
-  var selectedWallpaper = ''.obs;
+  var selectedImage = ''.obs;
+  var currentCategory = ''.obs;
 
   @override
   void onInit() {
@@ -20,84 +19,45 @@ class QuotesController extends GetxController {
     fetchLikedQuotes();
   }
 
-  void setSelectedWallpaper(String wallpaper) {
-    selectedWallpaper.value = wallpaper;
+  void selectImage(String imagePath) {
+    selectedImage.value = imagePath;
   }
 
-  void fetchQuotes() async {
+  void updateCurrentCategory(String category) {
+    currentCategory.value = category;
+  }
+
+  Future<void> fetchQuotes() async {
     isLoading(true);
-    var localQuotes = await DatabaseHelper.instance.fetchQuotes();
-    if (localQuotes.isNotEmpty) {
-      quotes.assignAll(localQuotes);
-      quotes.shuffle();
-      filterQuotes();
-      isLoading(false);
-      return;
-    }
-
-    try {
-      var apiQuotes = await QuoteApiHelper().fetchQuotes();
-      if (apiQuotes.isNotEmpty) {
-        for (var quote in apiQuotes) {
-          await DatabaseHelper.instance.insertQuote(quote);
-        }
-        quotes.assignAll(apiQuotes);
-        quotes.shuffle();
-      } else {
-        quotes.assignAll([]);
+    List<dynamic>? jsonData = await ApiServices().apiCalling();
+    if (jsonData != null) {
+      var fetchedQuotes = jsonData.map((data) => Quote.fromMap(data)).toList();
+      fetchedQuotes.shuffle(Random());
+      quotesList.value = fetchedQuotes;
+      if (quotesList.isNotEmpty) {
+        currentCategory.value = quotesList.first.category;
       }
-    } catch (e) {
-      print('Error fetching quotes: $e');
-      quotes.assignAll([]);
+      print('--- Fetched Data ---');
+    } else {
+      print('--- Null Data ---');
     }
-
-    filterQuotes();
     isLoading(false);
   }
 
-  void filterQuotes() {
-    if (selectedCategories.isEmpty) {
-      filteredQuotes.assignAll(quotes);
+  void likeQuote(int index) {
+    var quote = quotesList[index];
+    quote.like = !quote.like;
+    quotesList[index] = quote;
+
+    if (quote.like) {
+      likedQuotesList.add(quote);
     } else {
-      filteredQuotes.assignAll(quotes.where((quote) => selectedCategories.contains(quote.category)).toList());
+      likedQuotesList.remove(quote);
     }
-    filteredQuotes.shuffle();
   }
 
-  void setSelectedCategories(List<String> categories) {
-    selectedCategories.assignAll(categories);
-    filterQuotes();
+  Future<void> fetchLikedQuotes() async {
+    likedQuotesList.value = await DBHelper().getLikedQuotes();
   }
 
-  void setCurrentIndex(int index) {
-    currentIndex.value = index;
-  }
-
-  void likeQuote(int quoteId) async {
-    await DatabaseHelper.instance.likeQuote(quoteId);
-    fetchLikedQuotes();
-  }
-
-  void unlikeQuote(int quoteId) async {
-    await DatabaseHelper.instance.unlikeQuote(quoteId);
-    fetchLikedQuotes();
-  }
-
-  void fetchLikedQuotes() async {
-    var liked = await DatabaseHelper.instance.fetchLikedQuotes();
-    likedQuotes.assignAll(liked);
-    groupLikedQuotesByCategory();
-  }
-
-  void groupLikedQuotesByCategory() {
-    Map<String, List<Quote>> groupedQuotes = {};
-    for (var quote in likedQuotes) {
-      if (groupedQuotes.containsKey(quote.category)) {
-        groupedQuotes[quote.category]!.add(quote);
-      } else {
-        groupedQuotes[quote.category] = [quote];
-      }
-    }
-    likedQuotesByCategory.assignAll(groupedQuotes);
-  }
 }

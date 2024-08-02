@@ -5,7 +5,9 @@ import 'package:quotes_app_with_database/view/screens/home/setting_screen.dart';
 import 'package:quotes_app_with_database/view/screens/home/wallpaper_screen.dart';
 import 'package:share_extend/share_extend.dart';
 import '../../../controller/database_controller.dart';
+import '../../../helper/database_helper.dart';
 import 'category_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   final List<String> selectedCategories;
 
@@ -13,35 +15,28 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final QuotesController quotesController = Get.put(QuotesController());
+    final HomeController quotesController = Get.put(HomeController());
 
     return Scaffold(
       body: Obx(() {
         if (quotesController.isLoading.value) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
-          );
-        }
-        if (quotesController.quotes.isEmpty) {
-          return Center(
-            child: Text(
-              'No quotes available',
-              style: TextStyle(color: Colors.white),
-            ),
           );
         }
         return Stack(
           children: [
             Obx(() => Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(quotesController.selectedWallpaper.value.isEmpty
-                      ? 'assets/bg-img/img26.jpg'
-                      : quotesController.selectedWallpaper.value),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                          quotesController.selectedImage.value.isNotEmpty
+                              ? quotesController.selectedImage.value
+                              : 'assets/bg-img/img26.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -69,12 +64,12 @@ class HomeScreen extends StatelessWidget {
                             ),
                             SizedBox(width: 8.0),
                             Obx(() => Text(
-                              quotesController.filteredQuotes[quotesController.currentIndex.value].category,
-                              style: TextStyle(
-                                fontSize: 21,
-                                color: Colors.white,
-                              ),
-                            )),
+                                  quotesController.currentCategory.value,
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                  ),
+                                )),
                           ],
                         ),
                       ),
@@ -92,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            Get.to(const WallpaperScreen(), transition: Transition.fadeIn);
+                            Get.to(WallpaperScreen());
                           },
                         ),
                       ),
@@ -121,12 +116,13 @@ class HomeScreen extends StatelessWidget {
                 Expanded(
                   child: PageView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: quotesController.filteredQuotes.length,
+                    itemCount: quotesController.quotesList.length,
                     onPageChanged: (index) {
-                      quotesController.setCurrentIndex(index);
+                      var quote = quotesController.quotesList[index];
+                      quotesController.updateCurrentCategory(quote.category);
                     },
                     itemBuilder: (context, index) {
-                      var quote = quotesController.filteredQuotes[index];
+                      var quote = quotesController.quotesList[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Center(
@@ -134,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                             "\"${quote.quote}\"",
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
-                              fontSize: 32.0,
+                              fontSize: 30.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               shadows: [
@@ -168,8 +164,24 @@ class HomeScreen extends StatelessWidget {
                             IconButton(
                               icon: Icon(Icons.share),
                               onPressed: () {
-                                var currentQuote = quotesController.filteredQuotes[quotesController.currentIndex.value].quote;
-                                ShareExtend.share(currentQuote, "text");
+                                final currentIndex =
+                                    quotesController.quotesList.indexWhere(
+                                  (quote) =>
+                                      quote.category ==
+                                      quotesController.currentCategory.value,
+                                );
+                                if (currentIndex != -1) {
+                                  final currentQuote =
+                                      quotesController.quotesList[currentIndex];
+                                  final imagePath =
+                                      quotesController.selectedImage.value;
+                                  final content =
+                                      "\"${currentQuote.quote}\"\n\nImage: $imagePath";
+                                  ShareExtend.share(
+                                    content,
+                                    "text",
+                                  );
+                                }
                               },
                               color: Colors.white,
                             ),
@@ -177,7 +189,7 @@ class HomeScreen extends StatelessWidget {
                               'Share',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w500),
                             ),
                           ],
@@ -192,29 +204,39 @@ class HomeScreen extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            IconButton(
-                              icon: Obx(() => Icon(
-                                quotesController.likedQuotes.any((q) => q.id == quotesController.filteredQuotes[quotesController.currentIndex.value].id)
-                                    ? Icons.thumb_up
-                                    : Icons.thumb_up_alt_outlined,
-                                color: Colors.white,
-                              )),
-                              onPressed: () {
-                                var quoteId = quotesController.filteredQuotes[quotesController.currentIndex.value].id;
-                                if (quotesController.likedQuotes.any((q) => q.id == quoteId)) {
-                                  quotesController.unlikeQuote(quoteId!);
-                                } else {
-                                  quotesController.likeQuote(quoteId!);
-                                }
-                              },
-                              color: Colors.white,
-                            ),
+                            Obx(() {
+                              final currentIndex =
+                                  quotesController.quotesList.indexWhere(
+                                (quote) =>
+                                    quote.category ==
+                                    quotesController.currentCategory.value,
+                              );
+                              final quote =
+                                  quotesController.quotesList[currentIndex];
+                              final isLiked = quote.like;
+                              return IconButton(
+                                icon: Icon(
+                                  isLiked
+                                      ? Icons.thumb_up_alt
+                                      : Icons.thumb_up_alt_outlined,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  quotesController.likeQuote(currentIndex);
+                                  final updatedQuote =
+                                      quotesController.quotesList[currentIndex];
+                                  DBHelper().insertQuote(
+                                      updatedQuote); // Or use an update method
+                                },
+                              );
+                            }),
                             Text(
                               'Like',
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500),
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ],
                         ),
@@ -230,14 +252,16 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             IconButton(
                               icon: Icon(Icons.thumb_down_alt_outlined),
-                              onPressed: () {},
+                              onPressed: () {
+                                // Implement dislike functionality
+                              },
                               color: Colors.white,
                             ),
                             Text(
                               'Dislike',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w500),
                             ),
                           ],

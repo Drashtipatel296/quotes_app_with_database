@@ -9,7 +9,8 @@ class WallpaperScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final QuotesController wallpaperController = Get.put(QuotesController());
+
+    HomeController homeController = Get.put(HomeController());
 
     return Scaffold(
       appBar: AppBar(),
@@ -22,16 +23,14 @@ class WallpaperScreen extends StatelessWidget {
               'Themes',
               style: GoogleFonts.poppins(
                 color: const Color(0xff3B4AB1),
-                fontSize: 42,
+                fontSize: 38,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20,),
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 10.0,
                   mainAxisSpacing: 10.0,
@@ -41,7 +40,7 @@ class WallpaperScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      wallpaperController.setSelectedWallpaper(imgList[index]);
+                      homeController.selectImage(imgList[index]);
                       Get.back();
                     },
                     child: Container(

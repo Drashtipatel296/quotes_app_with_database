@@ -52,7 +52,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
         .where((entry) => entry.value)
         .map((entry) => entry.key)
         .toList();
-    Get.to(() => HomeScreen(selectedCategories: selectedCategoryNames));
+    Get.to(() => HomeScreen(selectedCategories: selectedCategoryNames,));
   }
 
   @override
@@ -77,7 +77,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
               'Categories',
               style: GoogleFonts.poppins(
                 color: const Color(0xff3B4AB1),
-                fontSize: 42,
+                fontSize: 38,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -85,7 +85,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
             Text(
               'Get a random mix from selected categories',
               style: GoogleFonts.poppins(
-                fontSize: 20,
+                fontSize: 18,
               ),
             ),
             const SizedBox(height: 25),
@@ -116,7 +116,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                           Text(
                             category.name,
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold, fontSize: 21),
+                                fontWeight: FontWeight.bold, fontSize: 17),
                           ),
                           Spacer(),
                           Row(
@@ -135,7 +135,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                                   },
                                 ),
                               ),
-                              Text(category.text, style: TextStyle(fontSize: 28)),
+                              Text(category.text, style: TextStyle(fontSize: 22)),
                             ],
                           ),
                         ],

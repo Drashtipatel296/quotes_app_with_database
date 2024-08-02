@@ -24,17 +24,17 @@ class SettingScreen extends StatelessWidget {
                   'Settings',
                   style: GoogleFonts.poppins(
                     color: const Color(0xff3B4AB1),
-                    fontSize: 42,
+                    fontSize: 38,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: 18),
-                Text('General', style: GoogleFonts.poppins(color: Colors.grey, fontSize: 20)),
+                Text('General', style: GoogleFonts.poppins(color: Colors.grey, fontSize: 16)),
                 Divider(color: Colors.grey),
                 SizedBox(height: 10),
                 Row(
                   children: [
-                    Text('Setup Questions', style: GoogleFonts.poppins(fontSize: 20)),
+                    Text('Setup Questions', style: GoogleFonts.poppins(fontSize: 18)),
                     Spacer(),
                     Icon(Icons.arrow_forward_ios, color: Color(0xff3B4AB1), size: 19),
                   ],
@@ -46,13 +46,13 @@ class SettingScreen extends StatelessWidget {
                   children: [
                     Text('Notifications', style: GoogleFonts.poppins(fontSize: 20)),
                     Spacer(),
-                    Icon(Icons.arrow_forward_ios, color: Color(0xff3B4AB1), size: 19),
+                    Icon(Icons.arrow_forward_ios, color: Color(0xff3B4AB1), size: 18),
                   ],
                 ),
                 SizedBox(height: 10),
                 Divider(color: Colors.grey),
                 SizedBox(height: 10),
-                Text('Your Affirmation', style: GoogleFonts.poppins(color: Colors.grey, fontSize: 18)),
+                Text('Your Affirmation', style: GoogleFonts.poppins(color: Colors.grey, fontSize: 16)),
                 SizedBox(height: 5),
                 Divider(color: Colors.grey),
                 SizedBox(height: 10),
@@ -60,7 +60,7 @@ class SettingScreen extends StatelessWidget {
                   children: [
                     Text('My Collection', style: GoogleFonts.poppins(fontSize: 20)),
                     Spacer(),
-                    Icon(Icons.arrow_forward_ios, color: Color(0xff3B4AB1), size: 19),
+                    Icon(Icons.arrow_forward_ios, color: Color(0xff3B4AB1), size: 18),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -68,11 +68,11 @@ class SettingScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    Get.to(const LikedQuotesScreen());
+                    Get.to(const FavoriteScreen());
                   },
                   child: Row(
                     children: [
-                      Text('My Favorites', style: GoogleFonts.poppins(fontSize: 20)),
+                      Text('My Favorites', style: GoogleFonts.poppins(fontSize: 18)),
                       Spacer(),
                       Icon(Icons.arrow_forward_ios, color: Color(0xff3B4AB1), size: 19),
                     ],
@@ -87,7 +87,7 @@ class SettingScreen extends StatelessWidget {
                   },
                   child: Row(
                     children: [
-                      Text('Change Theme', style: GoogleFonts.poppins(fontSize: 20)),
+                      Text('Change Theme', style: GoogleFonts.poppins(fontSize: 18)),
                       Spacer(),
                       Icon(CupertinoIcons.moon_fill, color: Color(0xff3B4AB1), size: 19),
                     ],
@@ -98,7 +98,7 @@ class SettingScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 Row(
                   children: [
-                    Text('Past Quotes & Affirmation', style: GoogleFonts.poppins(fontSize: 20)),
+                    Text('Past Quotes & Affirmation', style: GoogleFonts.poppins(fontSize: 18)),
                     Spacer(),
                     Icon(Icons.arrow_forward_ios, color: Color(0xff3B4AB1), size: 19),
                   ],
@@ -108,11 +108,11 @@ class SettingScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 40),
-            Text('Clear lesson data to redo lessons', style: GoogleFonts.poppins(fontSize: 16, color: const Color(0xff3B4AB1), fontWeight: FontWeight.w500)),
+            Text('Clear lesson data to redo lessons', style: GoogleFonts.poppins(fontSize: 14, color: const Color(0xff3B4AB1), fontWeight: FontWeight.w500)),
             SizedBox(height: 15),
-            Text('Contact Support', style: GoogleFonts.poppins(fontSize: 16, color: const Color(0xff3B4AB1), fontWeight: FontWeight.w500)),
+            Text('Contact Support', style: GoogleFonts.poppins(fontSize: 14, color: const Color(0xff3B4AB1), fontWeight: FontWeight.w500)),
             SizedBox(height: 15),
-            Text('Submit Logs to Support', style: GoogleFonts.poppins(fontSize: 16, color: const Color(0xff3B4AB1), fontWeight: FontWeight.w500)),
+            Text('Submit Logs to Support', style: GoogleFonts.poppins(fontSize: 14, color: const Color(0xff3B4AB1), fontWeight: FontWeight.w500)),
             SizedBox(height: 15),
             Text('v1.0.17', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500)),
             SizedBox(height: 15),

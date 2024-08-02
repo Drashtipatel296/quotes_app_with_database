@@ -3,20 +3,23 @@ class Quote {
   final String quote;
   final String author;
   final String category;
+  bool like;
 
   Quote({
     this.id,
     required this.quote,
     required this.author,
     required this.category,
+    required this.like,
   });
 
   factory Quote.fromMap(Map<String, dynamic> json) {
     return Quote(
-      id: json['id'] as int?,
+      id: json['id'],
       quote: json['quote'] ?? '',
       author: json['author'] ?? '',
       category: json['category'] ?? '',
+      like: json['liked'] ?? false,
     );
   }
 
@@ -26,6 +29,7 @@ class Quote {
       'quote': quote,
       'author': author,
       'category': category,
+      'liked': like ? 1 : 0,
     };
   }
 }
