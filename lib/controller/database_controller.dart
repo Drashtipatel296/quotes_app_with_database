@@ -11,6 +11,7 @@ class HomeController extends GetxController {
   var isLoading = true.obs;
   var selectedImage = ''.obs;
   var currentCategory = ''.obs;
+  var currentQuoteIndex = 0.obs;
 
   @override
   void onInit() {
@@ -44,25 +45,30 @@ class HomeController extends GetxController {
     isLoading(false);
   }
 
-  void favQuote(int index) {
+  Future<void> favQuote(int index) async {
     var quote = quotesList[index];
-    quote.like = !quote.like;
+    bool isLike  = quote.like;
+    quote.like = !isLike;
     quotesList[index] = quote;
 
     if (quote.like) {
-      likedQuotesList.add(quote);
+      if (!likedQuotesList.contains(quote)) {
+        likedQuotesList.add(quote);
+        print("=========add=============== ${likedQuotesList.length}");
+      }
+      await DatabaseHelper().insertQuote(quote);
     } else {
-      likedQuotesList.remove(quote);
+      if (likedQuotesList.contains(quote)) {
+        likedQuotesList.remove(quote);
+        print("============remove============ ${likedQuotesList.length}");
+      }
+      await DatabaseHelper().deleteLikedQuote(quote);
     }
   }
 
   Future<void> fetchLikedQuotes() async {
     likedQuotesList.value = await DatabaseHelper().getLikedQuotes();
-    for (var quote in likedQuotesList) {
-      if (quote.id == null) {
-        print('Error: Fetched quote with null ID');
-      }
-    }
+    print('Liked Quotes: ${likedQuotesList}');
   }
 }
 

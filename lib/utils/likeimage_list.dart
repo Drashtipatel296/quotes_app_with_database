@@ -1,66 +1,50 @@
 List likeImgList = [
   {
-    'img': 'assets/like-img/love.jpg',
-    'name': 'Love',
-  },
-  {
-    'img': 'assets/bg-img/img1.jpg',
-    'name': 'Affirmation',
-  },
-  {
-    'img': 'assets/bg-img/img8.jpg',
-    'name': 'Motivation',
-  },
-  {
-    'img': 'assets/like-img/positive.jpg',
-    'name': 'Positivity',
-  },
-  {
-    'img': 'assets/like-img/health.jpg',
-    'name': 'Mental Health',
-  },
-  {
-    'img': 'assets/like-img/dis.webp',
-    'name': 'Discipline',
-  },
-  {
-    'img': 'assets/like-img/broken.webp',
-    'name': 'Broken',
-  },
-  {
-    'img': 'assets/like-img/self.webp',
-    'name': 'Self Esteem',
-  },
-  {
-    'img': 'assets/like-img/success.webp',
-    'name': 'Success',
-  },
-  {
-    'img': 'assets/like-img/frd.jpeg',
-    'name': 'Friendship',
-  },
-  {
-    'img': 'assets/like-img/loyalty.jpg',
-    'name': 'Loyalty',
-  },
-  {
-    'img': 'assets/like-img/kind.jpeg',
-    'name': 'Kindness',
-  },
-  {
-    'img': 'assets/like-img/funny.jpg',
-    'name': 'Funny',
-  },
-  {
-    'img': 'assets/like-img/hp.jpg',
+    'img': 'assets/like-img/happy.jpg',
     'name': 'Happiness',
   },
   {
-    'img': 'assets/like-img/sad.jpg',
-    'name': 'Sad',
+    'img': 'assets/like-img/leader.webp',
+    'name': 'Leadership',
   },
   {
-    'img': 'assets/like-img/ego.jpg',
-    'name': 'Ego',
+    'img': 'assets/like-img/inspiration.jpg',
+    'name': 'Inspiration',
+  },
+  {
+    'img': 'assets/like-img/funny.png',
+    'name': 'Funny',
+  },
+  {
+    'img': 'assets/like-img/life.jpg',
+    'name': 'Life',
+  },
+  {
+    'img': 'assets/like-img/dream.jpeg',
+    'name': 'Dream',
+  },
+  {
+    'img': 'assets/like-img/love.avif',
+    'name': 'Falling in love',
+  },
+  {
+    'img': 'assets/like-img/friend.jpg',
+    'name': 'Friendship',
+  },
+  {
+    'img': 'assets/like-img/motivational.jpg',
+    'name': 'Motivational',
+  },
+  {
+    'img': 'assets/like-img/breakup.avif',
+    'name': 'Breakup',
+  },
+  {
+    'img': 'assets/like-img/alone.jpg',
+    'name': 'Alone',
+  },
+  {
+    'img': 'assets/like-img/goal.jpg',
+    'name': 'Goals',
   },
 ];

@@ -1,12 +1,12 @@
   class QuoteModel {
-    final int? id;
-    final String quote;
-    final String author;
-    final String category;
+    // int? id;
+    String quote;
+    String author;
+    String category;
     bool like;
 
     QuoteModel({
-      this.id,
+      // this.id,
       required this.quote,
       required this.author,
       required this.category,
@@ -15,17 +15,17 @@
 
     factory QuoteModel.fromMap(Map<String, dynamic> json) {
       return QuoteModel(
-        id: json['id'] as int?,
+        // id: json['id'],
         quote: json['quote'] ?? '',
         author: json['author'] ?? '',
         category: json['category'] ?? '',
-        like: json['liked'] ?? false,
+        like: json['like'] ?? false,
       );
     }
 
     Map<String, dynamic> toMap() {
       return {
-        'id': id,
+        // 'id': id,
         'quote': quote,
         'author': author,
         'category': category,

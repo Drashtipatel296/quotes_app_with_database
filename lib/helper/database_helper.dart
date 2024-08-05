@@ -19,9 +19,10 @@ class DatabaseHelper {
       onCreate: (db, version) async {
         await db.execute('''
           CREATE TABLE quotes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT
             quote TEXT,
             author TEXT,
-            liked INTEGER,
+            like INTEGER,
             category TEXT
           )
         ''');
@@ -41,10 +42,22 @@ class DatabaseHelper {
   Future<List<QuoteModel>> getLikedQuotes() async {
     final dbClient = await db;
     final List<Map<String, dynamic>> maps =
-        await dbClient.query('quotes', where: 'liked = ?', whereArgs: [1]);
+    await dbClient.query('quotes', where: 'liked = ?', whereArgs: [1]);
 
     return List.generate(maps.length, (i) {
       return QuoteModel.fromMap(maps[i]);
     });
   }
+
+  Future<void> deleteLikedQuote(QuoteModel quote) async {
+    try {
+      final dbClient = await db;
+      await dbClient.delete(
+        'quotes',
+        where: 'quote = ? AND author = ?',
+        whereArgs: [quote.quote, quote.author],
+      );
+    } catch (e) {}
+  }
+
 }

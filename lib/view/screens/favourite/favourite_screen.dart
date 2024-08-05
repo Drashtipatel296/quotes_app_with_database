@@ -48,7 +48,7 @@ class FavoriteScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             String category = categorizedQuotes.keys.elementAt(index);
             List<QuoteModel> quotes = categorizedQuotes[category]!;
-            String imagePath = categoryImages[category] ?? 'assets/default_image.png';
+            String imagePath = categoryImages[category] ?? 'assets/like-img/love.png';
 
             return GestureDetector(
               onTap: () {
@@ -58,14 +58,11 @@ class FavoriteScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    
                     fit: BoxFit.cover,
                     image: AssetImage(imagePath),
-                    colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.dstIn),
+                    colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.8), BlendMode.dstIn),
                   ),
                 ),
-                alignment: Alignment.center,
-                child: Text(category,style: GoogleFonts.poppins(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.white),),
               ),
             );
           },
