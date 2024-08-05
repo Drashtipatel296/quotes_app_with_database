@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../controller/database_controller.dart';
 import '../../../model/database_model.dart';
+import '../../../helper/database_helper.dart';
 
 class ShowQuotesScreen extends StatelessWidget {
   final String category;
@@ -14,6 +17,7 @@ class ShowQuotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController quotesController = Get.put(HomeController());
     return Scaffold(
       appBar: AppBar(
         title: Text(category),
@@ -33,10 +37,18 @@ class ShowQuotesScreen extends StatelessWidget {
                 '- ${quote.author}',
                 style: GoogleFonts.poppins(fontStyle: FontStyle.italic),
               ),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red),
+                onPressed: () {
+                  DatabaseHelper().deleteLikedQuote(quote);
+                  quotesController.likedQuotesList.remove(quote);
+                },
+              ),
             ),
           );
         }).toList(),
       ),
     );
   }
+
 }

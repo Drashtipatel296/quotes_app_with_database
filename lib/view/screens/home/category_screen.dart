@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'home_screen.dart';
+import '../../../utils/category_list.dart';
 
 class Category {
   final String name;
@@ -18,38 +17,6 @@ class CategorySelectionScreen extends StatefulWidget {
 }
 
 class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
-  final List<Category> categories = [
-    Category(name: 'Happiness', text: '😀'),
-    Category(name: 'Leadership', text: '🪯'),
-    Category(name: 'Inspiration', text: '⚕️'),
-    Category(name: 'Funny', text: '😂'),
-    Category(name: 'Life', text: '☺️'),
-    Category(name: 'Dream', text: '😴'),
-    Category(name: 'Falling in love', text: '❤️'),
-    Category(name: 'Friendship', text: '🤝'),
-    Category(name: 'Motivational', text: '🎗️'),
-    Category(name: 'Breakup', text: '💔'),
-    Category(name: 'Alone', text: '😔'),
-    Category(name: 'Goals', text: '🎯'),
-  ];
-
-  final Map<String, bool> selectedCategories = {};
-
-  @override
-  void initState() {
-    super.initState();
-    for (var category in categories) {
-      selectedCategories[category.name] = false;
-    }
-  }
-
-  void navigateToHomeScreen() {
-    final selectedCategoryNames = selectedCategories.entries
-        .where((entry) => entry.value)
-        .map((entry) => entry.key)
-        .toList();
-    Get.to(() => HomeScreen(selectedCategories: selectedCategoryNames,));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +25,8 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            icon: Icon(Icons.close, size: 35, color: Color(0xff3B4AB1)),
-            onPressed: () {
-              // Close button action
-            },
+            icon: const Icon(Icons.close, size: 35, color: Color(0xff3B4AB1)),
+            onPressed: () {},
           ),
         ],
       ),
@@ -100,7 +65,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                   return Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Color(0xff3B4AB1),
+                        color: const Color(0xff3B4AB1),
                         width: 2.5,
                       ),
                       borderRadius: BorderRadius.circular(10),
@@ -115,24 +80,20 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.bold, fontSize: 17),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Transform.scale(
                                 scale: 1.1,
                                 child: Checkbox(
-                                  shape: CircleBorder(),
-                                  activeColor: Color(0xff3B4AB1),
-                                  value: selectedCategories[category.name],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedCategories[category.name] = value!;
-                                    });
-                                  },
+                                  shape: const CircleBorder(),
+                                  activeColor: const Color(0xff3B4AB1),
+                                  value: false,
+                                  onChanged: (value) {},
                                 ),
                               ),
-                              Text(category.text, style: TextStyle(fontSize: 22)),
+                              Text(category.text, style: const TextStyle(fontSize: 22)),
                             ],
                           ),
                         ],

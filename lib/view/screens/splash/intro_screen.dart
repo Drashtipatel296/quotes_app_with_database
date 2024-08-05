@@ -28,7 +28,7 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
       CurvedAnimation(parent: _controller, curve: Curves.easeIn),
     );
 
-    _slideAnimation = Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0)).animate(
+    _slideAnimation = Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0)).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
@@ -76,7 +76,7 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                             style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         SlideTransition(
                           position: _slideAnimation,
                           child: Container(
@@ -97,9 +97,9 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
+                                      border: Border.all(width: 0.5, color: const Color(0xff6E89FA)),
                                     ),
-                                    child: Icon(Icons.remove),
+                                    child: const Icon(Icons.remove),
                                   ),
                                   Text('1X', style: GoogleFonts.poppins(fontSize: 16)),
                                   Container(
@@ -107,16 +107,16 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
+                                      border: Border.all(width: 0.5, color: const Color(0xff6E89FA)),
                                     ),
-                                    child: Icon(Icons.add),
+                                    child: const Icon(Icons.add),
                                   ),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         SlideTransition(
                           position: _slideAnimation,
                           child: Container(
@@ -137,9 +137,9 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
+                                      border: Border.all(width: 0.5, color: const Color(0xff6E89FA)),
                                     ),
-                                    child: Icon(Icons.remove),
+                                    child: const Icon(Icons.remove),
                                   ),
                                   Text('9:00 AM', style: GoogleFonts.poppins(fontSize: 16)),
                                   Container(
@@ -147,16 +147,16 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
+                                      border: Border.all(width: 0.5, color: const Color(0xff6E89FA)),
                                     ),
-                                    child: Icon(Icons.add),
+                                    child: const Icon(Icons.add),
                                   ),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         SlideTransition(
                           position: _slideAnimation,
                           child: Container(
@@ -177,9 +177,9 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
+                                      border: Border.all(width: 0.5, color: const Color(0xff6E89FA)),
                                     ),
-                                    child: Icon(Icons.remove),
+                                    child: const Icon(Icons.remove),
                                   ),
                                   Text('6:00 PM', style: GoogleFonts.poppins(fontSize: 16)),
                                   Container(
@@ -187,9 +187,9 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                                     width: 35,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      border: Border.all(width: 0.5, color: Color(0xff6E89FA)),
+                                      border: Border.all(width: 0.5, color: const Color(0xff6E89FA)),
                                     ),
-                                    child: Icon(Icons.add),
+                                    child: const Icon(Icons.add),
                                   ),
                                 ],
                               ),
@@ -200,7 +200,7 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 FadeTransition(
                   opacity: _opacityAnimation,
                   child: Text(
@@ -209,18 +209,18 @@ class _IntroScreenState extends State<IntroScreen> with SingleTickerProviderStat
                     style: GoogleFonts.poppins(fontSize: 16),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 FadeTransition(
                   opacity: _opacityAnimation,
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(HomeScreen(selectedCategories: []),transition: Transition.zoom);
+                      Get.to(const HomeScreen(selectedCategories: []),transition: Transition.zoom);
                     },
                     child: Container(
                       height: 55,
                       width: 400,
                       decoration: BoxDecoration(
-                        color: Color(0xff6E89FA),
+                        color: const Color(0xff6E89FA),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       alignment: Alignment.center,

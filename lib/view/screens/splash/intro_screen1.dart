@@ -93,17 +93,17 @@ class _SplashScreenState extends State<IntroScreen1> with SingleTickerProviderSt
                                   Text('  No ads', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500)),
                                 ],
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               Row(
                                 children: [
-                                  Icon(Icons.done, color: Color(0xff3B4AB1), size: 25),
+                                  const Icon(Icons.done, color: Color(0xff3B4AB1), size: 25),
                                   Text('  By a non-profit research\n  organization', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500)),
                                 ],
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               Row(
                                 children: [
-                                  Icon(Icons.done, color: Color(0xff3B4AB1), size: 25),
+                                  const Icon(Icons.done, color: Color(0xff3B4AB1), size: 25),
                                   Text('  67% report the free course \n  content as "life-changing"', style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500)),
                                 ],
                               ),
@@ -114,18 +114,18 @@ class _SplashScreenState extends State<IntroScreen1> with SingleTickerProviderSt
                     ),
                   ),
                 ),
-                SizedBox(height: 45),
+                const SizedBox(height: 45),
                 FadeTransition(
                   opacity: _opacityAnimation,
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(IntroScreen(),transition: Transition.zoom);
+                      Get.to(const IntroScreen(),transition: Transition.zoom);
                     },
                     child: Container(
                       height: 55,
                       width: 400,
                       decoration: BoxDecoration(
-                        color: Color(0xff6E89FA),
+                        color: const Color(0xff6E89FA),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       alignment: Alignment.center,

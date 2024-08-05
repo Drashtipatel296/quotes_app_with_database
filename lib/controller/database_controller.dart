@@ -11,7 +11,6 @@ class HomeController extends GetxController {
   var isLoading = true.obs;
   var selectedImage = ''.obs;
   var currentCategory = ''.obs;
-  var currentQuoteIndex = 0.obs;
 
   @override
   void onInit() {
@@ -30,45 +29,53 @@ class HomeController extends GetxController {
 
   Future<void> getQuotes() async {
     isLoading(true);
-    List<dynamic>? jsonData = await ApiServices().apiCalling();
-    if (jsonData != null) {
-      var fetchedQuotes = jsonData.map((data) => QuoteModel.fromMap(data)).toList();
-      fetchedQuotes.shuffle(Random());
-      quotesList.value = fetchedQuotes;
-      if (quotesList.isNotEmpty) {
-        currentCategory.value = quotesList.first.category;
+    try {
+      List<dynamic>? jsonData = await ApiServices().apiCalling();
+      if (jsonData != null) {
+        var fetchedQuotes = jsonData.map((data) => QuoteModel.fromMap(data)).toList();
+        fetchedQuotes.shuffle(Random());
+        quotesList.value = fetchedQuotes;
+        if (quotesList.isNotEmpty) {
+          currentCategory.value = quotesList.first.category;
+        }
+        print('--- Fetched Data ---');
+      } else {
+        print('--- Null Data ---');
       }
-      print('--- Fetched Data ---');
-    } else {
-      print('--- Null Data ---');
+    } catch (e) {
+      print('Error fetching quotes: $e');
+    } finally {
+      isLoading(false);
     }
-    isLoading(false);
   }
 
   Future<void> favQuote(int index) async {
     var quote = quotesList[index];
-    bool isLike  = quote.like;
-    quote.like = !isLike;
+    bool isLike  = quote.liked;
+    quote.liked = !isLike;
     quotesList[index] = quote;
 
-    if (quote.like) {
+    if (quote.liked) {
       if (!likedQuotesList.contains(quote)) {
         likedQuotesList.add(quote);
-        print("=========add=============== ${likedQuotesList.length}");
+        print("{likedQuotesList.length}");
       }
       await DatabaseHelper().insertQuote(quote);
     } else {
       if (likedQuotesList.contains(quote)) {
         likedQuotesList.remove(quote);
-        print("============remove============ ${likedQuotesList.length}");
+        print("${likedQuotesList.length}");
       }
       await DatabaseHelper().deleteLikedQuote(quote);
     }
   }
 
   Future<void> fetchLikedQuotes() async {
-    likedQuotesList.value = await DatabaseHelper().getLikedQuotes();
-    print('Liked Quotes: ${likedQuotesList}');
+    try {
+      likedQuotesList.value = await DatabaseHelper().getLikedQuotes();
+      print('Liked Quotes: ${likedQuotesList}');
+    } catch (e) {
+      print('Error fetching liked quotes: $e');
+    }
   }
 }
-

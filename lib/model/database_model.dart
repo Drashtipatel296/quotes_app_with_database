@@ -1,35 +1,31 @@
   class QuoteModel {
-    // int? id;
     String quote;
     String author;
     String category;
-    bool like;
+    bool liked;
 
     QuoteModel({
-      // this.id,
       required this.quote,
       required this.author,
       required this.category,
-      required this.like,
+      required this.liked,
     });
 
     factory QuoteModel.fromMap(Map<String, dynamic> json) {
       return QuoteModel(
-        // id: json['id'],
         quote: json['quote'] ?? '',
         author: json['author'] ?? '',
         category: json['category'] ?? '',
-        like: json['like'] ?? false,
+        liked: json['like'] ?? false,
       );
     }
 
     Map<String, dynamic> toMap() {
       return {
-        // 'id': id,
         'quote': quote,
         'author': author,
         'category': category,
-        'liked': like ? 1 : 0,
+        'liked': liked ? 1 : 0,
       };
     }
   }

@@ -54,18 +54,18 @@ class HomeScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.menu,
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                Get.to(() => CategorySelectionScreen());
+                                Get.to(() => const CategorySelectionScreen());
                               },
                             ),
-                            SizedBox(width: 8.0),
+                            const SizedBox(width: 8.0),
                             Obx(() => Text(
                                   quotesController.currentCategory.value,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 17,
                                     color: Colors.white,
                                   ),
@@ -73,43 +73,43 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Container(
                         height: 45,
                         width: 45,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.image,
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            Get.to(WallpaperScreen());
+                            Get.to(const WallpaperScreen());
                           },
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Container(
                         height: 45,
                         width: 45,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.settings,
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            Get.to(SettingScreen());
+                            Get.to(const SettingScreen());
                           },
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                     ],
                   ),
                 ),
@@ -162,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             IconButton(
-                              icon: Icon(Icons.share),
+                              icon: const Icon(Icons.share),
                               onPressed: () {
                                 final currentIndex =
                                     quotesController.quotesList.indexWhere(
@@ -182,7 +182,7 @@ class HomeScreen extends StatelessWidget {
                               },
                               color: Colors.white,
                             ),
-                            Text(
+                            const Text(
                               'Share',
                               style: TextStyle(
                                   color: Colors.white,
@@ -204,7 +204,7 @@ class HomeScreen extends StatelessWidget {
                             Obx(() {
                               final currentIndex = quotesController.quotesList.indexWhere((quote) => quote.category == quotesController.currentCategory.value,);
                               final quote = quotesController.quotesList[currentIndex];
-                              final isLiked = quote.like;
+                              final isLiked = quote.liked;
                               return IconButton(
                                 icon: Icon(
                                   isLiked
@@ -214,12 +214,10 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   quotesController.favQuote(currentIndex);
-                                  final updatedQuote = quotesController.quotesList[currentIndex];
-                                  DatabaseHelper().insertQuote(updatedQuote);
                                 },
                               );
                             }),
-                            Text(
+                            const Text(
                               'Like',
                               style: TextStyle(
                                 color: Colors.white,
@@ -240,13 +238,11 @@ class HomeScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             IconButton(
-                              icon: Icon(Icons.thumb_down_alt_outlined),
-                              onPressed: () {
-                                // Implement dislike functionality
-                              },
+                              icon: const Icon(Icons.thumb_down_alt_outlined),
+                              onPressed: () {},
                               color: Colors.white,
                             ),
-                            Text(
+                            const Text(
                               'Dislike',
                               style: TextStyle(
                                   color: Colors.white,
