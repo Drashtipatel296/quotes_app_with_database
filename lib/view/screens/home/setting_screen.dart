@@ -81,7 +81,7 @@ class SettingScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 Divider(color: Colors.grey),
                 SizedBox(height: 10),
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     themeController.toggleTheme();
                   },

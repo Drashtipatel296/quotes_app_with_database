@@ -2,8 +2,6 @@ List imgList = [
   'assets/bg-img/img1.jpg',
   'assets/bg-img/img4.jpg',
   'assets/bg-img/img5.jpg',
-  'assets/bg-img/img6.png',
-  'assets/bg-img/img7.webp',
   'assets/bg-img/img8.jpg',
   'assets/bg-img/img9.webp',
   'assets/bg-img/img10.jpg',
@@ -21,6 +19,7 @@ List imgList = [
   'assets/bg-img/img22.jpg',
   'assets/bg-img/img23.jpg',
   'assets/bg-img/img24.jpg',
+  'assets/bg-img/img25.jpeg',
   'assets/bg-img/img25.jpg',
   'assets/bg-img/img26.jpg',
 ];

@@ -19,22 +19,18 @@ class CategorySelectionScreen extends StatefulWidget {
 
 class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
   final List<Category> categories = [
-    Category(name: 'Love', text: '🩷'),
-    Category(name: 'Affirmation', text: '🪯'),
-    Category(name: 'Motivation', text: '⚕️'),
-    Category(name: 'Positivity', text: '😛'),
-    Category(name: 'Mental Health', text: '🧑‍⚕️'),
-    Category(name: 'Discipline', text: '🕴️'),
-    Category(name: 'Broken', text: '💔'),
-    Category(name: 'Self Esteem', text: '🙋‍♀️'),
-    Category(name: 'Success', text: '🎯'),
-    Category(name: 'Friendship', text: '🤝'),
-    Category(name: 'Loyalty', text: '🥰'),
-    Category(name: 'Kindness', text: '😊'),
-    Category(name: 'Funny', text: '😂'),
     Category(name: 'Happiness', text: '😀'),
-    Category(name: 'Sad', text: '😔'),
-    Category(name: 'Ego', text: '😎'),
+    Category(name: 'Leadership', text: '🪯'),
+    Category(name: 'Inspiration', text: '⚕️'),
+    Category(name: 'Funny', text: '😂'),
+    Category(name: 'Life', text: '☺️'),
+    Category(name: 'Dream', text: '😴'),
+    Category(name: 'Falling in love', text: '❤️'),
+    Category(name: 'Friendship', text: '🤝'),
+    Category(name: 'Motivational', text: '🎗️'),
+    Category(name: 'Breakup', text: '💔'),
+    Category(name: 'Alone', text: '😔'),
+    Category(name: 'Goals', text: '🎯'),
   ];
 
   final Map<String, bool> selectedCategories = {};
@@ -59,6 +55,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         actions: [
           IconButton(
             icon: Icon(Icons.close, size: 35, color: Color(0xff3B4AB1)),
@@ -143,12 +140,6 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                     ),
                   );
                 },
-              ),
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: navigateToHomeScreen,
-                child: Text('Continue'),
               ),
             ),
           ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quotes_app_with_database/view/screens/splash/splash_screen.dart';
-
 import 'controller/theme_controller.dart';
+
 void main() {
   runApp(const MyApp());
 }

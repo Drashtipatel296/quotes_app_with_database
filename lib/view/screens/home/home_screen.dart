@@ -127,10 +127,10 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Center(
                           child: Text(
-                            "\"${quote.quote}\"",
+                            quote.quote,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
-                              fontSize: 30.0,
+                              fontSize: 28.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               shadows: [
@@ -176,11 +176,8 @@ class HomeScreen extends StatelessWidget {
                                   final imagePath =
                                       quotesController.selectedImage.value;
                                   final content =
-                                      "\"${currentQuote.quote}\"\n\nImage: $imagePath";
-                                  ShareExtend.share(
-                                    content,
-                                    "text",
-                                  );
+                                      "\"${currentQuote.quote}\"\n";
+                                  ShareExtend.share(content, "text",);
                                 }
                               },
                               color: Colors.white,
