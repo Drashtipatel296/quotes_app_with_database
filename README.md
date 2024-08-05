@@ -25,8 +25,9 @@ This Flutter application allows users to manage and share their favorite quotes.
 https://github.com/user-attachments/assets/ce949241-c6eb-475c-b1d3-e3cd775e2a36
 
 
-![Screenshot 2024-08-02 135411](https://github.com/user-attachments/assets/1ceedc27-f36b-4cda-afe1-79d59a9fb98e)
 
+
+![Screenshot 2024-08-05 144030](https://github.com/user-attachments/assets/7cd6d817-655c-44fb-b7da-eeaf00152ded)
 
 
 
